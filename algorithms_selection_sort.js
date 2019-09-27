@@ -1,6 +1,6 @@
 const numbers = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
 
-// O(n^2)
+// O(n^2) 
 function selectionSort(array) {
     for(let i = 0; i < array.length; i++){
         let smallestItemIndex = i;

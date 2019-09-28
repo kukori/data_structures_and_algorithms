@@ -95,6 +95,39 @@ class BinarySearchTree {
         }
         return this.breathFirstSearchRecursive(queue, list);
     }
+
+    depthFirstSearchInOrder(node, list = []) {
+        if(node.left) {
+            this.depthFirstSearchInOrder(node.left, list);
+        }
+        list.push(node.value);
+        if(node.right) {
+            this.depthFirstSearchInOrder(node.right, list);
+        }
+        return list;
+    }
+
+    depthFirstSearchPreOrder(node, list = []) {
+        list.push(node.value);
+        if(node.left) {
+            this.depthFirstSearchPreOrder(node.left, list);
+        }
+        if(node.right) {
+            this.depthFirstSearchPreOrder(node.right, list);
+        }
+        return list;
+    }
+
+    depthFirstSearchPostOrder(node, list = []) {
+        if(node.left) {
+            this.depthFirstSearchPostOrder(node.left, list);
+        }
+        if(node.right) {
+            this.depthFirstSearchPostOrder(node.right, list);
+        }
+        list.push(node.value);
+        return list;
+    }
 }
   
 const tree = new BinarySearchTree();
@@ -126,3 +159,7 @@ console.log(tree.lookup(20));
 
 console.log('BFS: ', tree.breathFirstSearch());
 console.log('BFS recursive: ', tree.breathFirstSearchRecursive([tree.root]));
+
+console.log('DFS - in order: ', tree.depthFirstSearchInOrder(tree.root));
+console.log('DFS - pre order: ', tree.depthFirstSearchPreOrder(tree.root));
+console.log('DFS - post order: ', tree.depthFirstSearchPostOrder(tree.root));

@@ -61,7 +61,39 @@ class BinarySearchTree {
         }
     }
 
-    remove(value) {
+    breathFirstSearch() {
+        let currentNode = this.root;
+        let list = [];
+        let queue = [];
+        queue.push(currentNode);
+
+        while(queue.length > 0) {
+            currentNode = queue.shift();
+            list.push(currentNode.value);
+            if(currentNode.left !== null) {
+                queue.push(currentNode.left);
+            }
+            if(currentNode.right !== null) {
+                queue.push(currentNode.right);
+            }
+        }
+        return list;
+    }
+
+    breathFirstSearchRecursive(queue, list = []) {
+        if (!queue.length) {
+            return list;
+        }
+        let currentNode = queue.shift();
+        list.push(currentNode.value);
+
+        if(currentNode.left !== null) {
+            queue.push(currentNode.left);
+        }
+        if(currentNode.right !== null) {
+            queue.push(currentNode.right);
+        }
+        return this.breathFirstSearchRecursive(queue, list);
     }
 }
   
@@ -91,3 +123,6 @@ console.log(JSON.stringify(traverse(tree.root)));
 console.log(tree.lookup(77));
 console.log(tree.lookup(170));
 console.log(tree.lookup(20));
+
+console.log('BFS: ', tree.breathFirstSearch());
+console.log('BFS recursive: ', tree.breathFirstSearchRecursive([tree.root]));

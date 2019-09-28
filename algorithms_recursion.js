@@ -78,5 +78,32 @@ function reverseStringRecursive(str) {
     return str[str.length-1] + reverseStringRecursive(str.slice(0, -1));
 }
 
-console.log('iterative: ', reverseStringIterative('yoyo mastery'));
-console.log('rec: ', reverseStringRecursive('yoyo mastery'));
+// console.log('iterative: ', reverseStringIterative('yoyo mastery'));
+// console.log('rec: ', reverseStringRecursive('yoyo mastery'));
+
+//Fibonacci with dynamic programming (cacheing)
+// O(n) time complexity, increased space complexity
+class Fibonacci {
+    constructor() {
+        this.cache = {};
+        this.numberOfOps = 0;
+    }
+
+    fibonacciRecursive(n) {
+        let result = 0;
+        this.numberOfOps++;
+        if(n in this.cache) {
+            return this.cache[n];
+        }
+        if(n < 2) {
+            return n;
+        } else {
+            this.cache[n] = this.fibonacciRecursive(n-1) + this.fibonacciRecursive(n-2);
+            return this.cache[n];
+        }
+    }
+}
+
+let f = new Fibonacci();
+console.log('result: ', f.fibonacciRecursive(10));
+console.log('ops: ', f.numberOfOps);

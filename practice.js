@@ -133,3 +133,44 @@ function permAlone(str) {
 
   
 //console.log(permAlone('aab'));
+
+
+// You may use multiple pairs that have the same numeric elements but different indices. Each pair should use the lowest possible available indices. Once an element has been used it cannot be reused to pair with another element. For instance, pairwise([1, 1, 2], 3)creates a pair [2, 1]using the 1 at indice 0 rather than the 1 at indice 1, because 0+2 < 1+2.
+function pairwise(array, sum) {
+
+    const elements = {};
+
+    for(let i = 0; i < array.length; i++) {
+        if(Array.isArray(elements[array[i]])) {
+            elements[array[i]].push(i);
+        } else {
+            elements[array[i]] = [i];
+        }
+    }
+
+    console.log(elements);
+    let result = 0;
+
+    for(let j = 0; j < array.length; j++) {
+        let difference = sum - array[j];
+        if (Array.isArray(elements[difference]) && elements[difference].length > 0 && Array.isArray(elements[array[j]]) && elements[array[j]].length > 0) {
+            console.log('indexes: ', elements[difference] + ' - ' + j);
+            console.log('elements: ', difference + ' - ' + array[j]);
+            let diffIndex = elements[difference].shift();
+            if(diffIndex === j) {
+                diffIndex = elements[difference].shift();
+            }
+            if(Number.isInteger(diffIndex)) {
+                result += diffIndex + j;
+            }
+            elements[array[j]].shift();
+        }
+    }
+    console.log(elements);
+    return result;
+}
+  
+// console.log(pairwise([1,4,2,3,0,5], 7));
+// console.log(pairwise([1, 3, 2, 4], 4));
+// console.log(pairwise([0, 0, 0, 0, 1, 1], 1));
+// console.log(pairwise([1, 1, 1], 2));

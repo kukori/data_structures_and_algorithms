@@ -94,3 +94,42 @@ var newInv = [
 
 //console.log(updateInventory(curInv, newInv));
 //console.log(updateInventory([], [[2, "Hair Pin"], [3, "Half-Eaten Apple"], [67, "Bowling Ball"], [7, "Toothpaste"]]));
+
+
+
+//Return the number of total permutations of the provided string that don't have repeated consecutive letters. Assume that all characters in the provided string are each unique.
+function permAlone(str) {
+
+    const calculatePermutations = (str) => {
+
+        if (str.length === 1){
+            return [str]
+        }
+        
+        let permutations = [];
+        for (let i = 0; i < str.length; i++) {
+            const currentLetter = str[i];
+            const remainingLetters = str.slice(0,i) + str.slice(i+1);
+            //console.log(remainingLetters);
+
+            const permutationsOfRemaining = calculatePermutations(remainingLetters);
+        
+            permutationsOfRemaining.forEach(subPerm => {
+                permutations.push(currentLetter + subPerm)    
+            })  
+        }
+        
+        return permutations;
+    }
+
+    let allPermutations = calculatePermutations(str);
+    let regex = /(.)\1+/g;
+    
+    let result = allPermutations.filter(function(string) {
+        return !string.match(regex);
+    });
+    return result.length;
+}
+
+  
+//console.log(permAlone('aab'));
